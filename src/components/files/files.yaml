@@ -1,0 +1,99 @@
+components:
+  schemas:
+    Files:
+      required:
+        - name
+        - path
+        - mimeType
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        mimeType:
+          type: string
+
+path:
+  /files/:
+    get:
+      tags:
+        - File
+      summary: Get all Files
+      description: Return list of all files
+      responses:
+        200:
+          description: list of all files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Files'
+    post:
+      tags:
+        - File
+      summary: create file
+      description: create file
+      requestBody:
+        description: New file to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Files'
+      responses:
+        200:
+          description: create file
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Files'
+
+  /files/{fileId}:
+    get:
+      tags:
+        - File
+      summary: Get File
+      description: Return file info
+      parameters:
+        - name: fileId
+          in: path
+          description: File id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: list file info
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Files'
+    delete:
+      tags:
+        - File
+      summary: delete file
+      description: delete file
+      parameters:
+        - name: fileId
+          in: path
+          description: File id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: delete file
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Files'

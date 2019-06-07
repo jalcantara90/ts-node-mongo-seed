@@ -1,0 +1,47 @@
+{
+  "name": "files",
+  "version": "1.0.0",
+  "description": "File microservice",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "NODE_ENV=dev nodemon",
+    "start:debug": "NODE_ENV=dev nodemon --inspect=9230",
+    "dev:watch": "tsc --w"
+  },
+  "author": "Jonathan Alcantara <jalcantara1990@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "boom": "^7.3.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "module-alias": "^2.2.0",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.13",
+    "tsconfig-paths": "^3.8.0",
+    "typegoose": "^5.7.1",
+    "typescript": "^3.5.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/boom": "^7.2.1",
+    "@types/cors": "^2.8.5",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.16.1",
+    "@types/mongoose": "^5.3.24",
+    "@types/swagger-jsdoc": "0.0.2",
+    "@types/swagger-ui-express": "^3.0.0",
+    "cors": "^2.8.5",
+    "nodemon": "^1.19.1",
+    "swagger": "^0.7.5",
+    "swagger-jsdoc": "^3.2.9",
+    "swagger-ui-express": "^4.0.6",
+    "ts-node": "^8.2.0"
+  },
+  "_moduleAliases": {
+    "@config": "dist/config",
+    "@routes": "dist/routes",
+    "@logger": "dist/logger",
+    "@MongoLib": "dist/libs/mongo-lib"
+  }
+}
