@@ -8,7 +8,7 @@ const swaggerDefinition = {
   openapi: "3.0.n",
   info: {
     title: "Files microservice", // Title of the documentation
-    version: "0.8.0", // Version of the app
+    version: "1.0.0", // Version of the app
     description: "Microservice" // short description of the app
   },
   servers: [{ url: "http://localhost:3040/api", description: "Local" }]
@@ -34,7 +34,7 @@ const swaggerUIOptions = {
 };
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
-console.log(options.apis);
+
 export default [
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, swaggerUIOptions)

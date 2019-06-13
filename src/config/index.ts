@@ -17,4 +17,5 @@ switch (process.env.NODE_ENV) {
 dotenv.config({ path: environmentPath });  
 export const PORT: string | undefined = process.env.PORT;
 export const MONGODB_HOST: string = process.env.MONGODB_HOST || 'mongodb://localhost:27017/files';
+export const UPLOAD_PATH: string = path.join( __basedir, 'dist', 'uploads' );
 

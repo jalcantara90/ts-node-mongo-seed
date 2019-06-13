@@ -11,7 +11,6 @@ import routes from './components/components.routes';
 import { logger } from '@logger';
 
 /* Middlewares */
-import { loggerMiddleware, parserResponseMiddleware } from './middlewares/logger.middleware';
 import { logErrors, clientErrorHandler } from './middlewares/errorHandler.middleware';
 
 /* Swagger */
@@ -21,8 +20,8 @@ import swaggerConfig from './libs/swagger-docs';
 import { MongoLib } from '@MongoLib';
 
 const server = Server.instance;
-server.app.use( bodyParser.urlencoded({ extended: true }) );
-server.app.use( bodyParser.json() );
+server.app.use( bodyParser.urlencoded({ limit:'50mb', extended: true }) );
+server.app.use( bodyParser.json({ limit:'50mb' }) );
 
 // Initialize mongodb connection
 new MongoLib().connect();

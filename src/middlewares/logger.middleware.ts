@@ -19,4 +19,6 @@ export const parserResponseMiddleware = (req: Request, res: ICustomResponse, nex
   next();
 }
 
-const buildQueryString = (query: any): string => `?${Object.keys(query).map(key => `${key}=${query[key]}`).join('&')}`;
+const buildQueryString = (query: any): string => Object.keys(query).length ? 
+  `?${Object.keys(query).map(key => `${key}=${query[key]}`).join('&')}` : 
+  '';

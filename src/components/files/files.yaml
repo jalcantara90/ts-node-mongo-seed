@@ -9,11 +9,15 @@ components:
       properties:
         _id:
           type: string
+        originalName:
+          type: string
         name:
           type: string
         path:
           type: string
         mimeType:
+          type: string
+        encoding:
           type: string
 
 path:
@@ -29,9 +33,7 @@ path:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Files'
+                $ref: '#/components/schemas/Files'
     post:
       tags:
         - File
@@ -50,9 +52,7 @@ path:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Files'
+                $ref: '#/components/schemas/Files'
 
   /files/{fileId}:
     get:
@@ -73,9 +73,7 @@ path:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Files'
+                $ref: '#/components/schemas/Files'
     delete:
       tags:
         - File
@@ -94,6 +92,81 @@ path:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Files'
+                $ref: '#/components/schemas/Files'
+
+  /files/upload/:
+    post:
+      tags:
+        - File
+      summary: Uploads a file.
+      consumes:
+        - multipart/form-data
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: file
+                  format: binary
+      responses:
+        200:
+          description: created files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+
+  /files/download/{fileId}:
+    get:
+      tags:
+        - File
+      summary: Download file
+      description: Return file 
+      parameters:
+        - name: fileId
+          in: path
+          description: File id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+            description: client receive file
+            content:
+                multipart/form-data:
+                  schema:
+                    type: file
+                    format: binary
+  /files/zip/{zipName}:
+    get:
+      tags:
+        - File
+      summary: Get File
+      description: Return file 
+      parameters:
+        - in: path
+          name: zipName
+          description: name of zip
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: fileId
+          description: id of file to compose zip
+          required: false
+          schema:
+            type: array
+            items:
+              type: string 
+      responses:
+        200:
+            description: client receive zip compose it with requested files
+            content:
+                multipart/form-data:
+                  schema:
+                    type: file
+                    format: binary
+
+
