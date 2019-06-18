@@ -1,6 +1,5 @@
 /* Globals */
 import { Router } from 'express';
-import multer from 'multer';
 
 /* Controller */
 import * as filesController from './files.controllers';

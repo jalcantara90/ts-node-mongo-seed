@@ -7,7 +7,7 @@ import path from 'path';
 const swaggerDefinition = {
   openapi: "3.0.n",
   info: {
-    title: "Files microservice", // Title of the documentation
+    title: "Dingo Files microservice", // Title of the documentation
     version: "1.0.0", // Version of the app
     description: "Microservice" // short description of the app
   },

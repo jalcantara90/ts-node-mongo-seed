@@ -1,7 +1,7 @@
 {
-  "name": "files",
+  "name": "dingo-files",
   "version": "1.0.0",
-  "description": "File microservice",
+  "description": "File microservice for dingo",
   "main": "index.js",
   "scripts": {
     "start:dev": "NODE_ENV=dev nodemon",

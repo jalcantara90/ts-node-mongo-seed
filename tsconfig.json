@@ -62,7 +62,8 @@
       "@config": ["src/config"],
       "@routes/*": ["src/routes/*"],
       "@logger": ["src/logger.ts"],
-      "@MongoLib": ["src/libs/mongo-lib.ts"]
+      "@MongoLib": ["src/libs/mongo-lib.ts"],
+      "@sdk": ["src/sdk"]
     },
   }
 }

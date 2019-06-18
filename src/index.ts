@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 // routes
+server.app.use('/status', (req, res, next) => res.status(200).send({ status: 'ok' }) );
 server.app.use('/api', routes());
 
 server.app.use(logErrors);
