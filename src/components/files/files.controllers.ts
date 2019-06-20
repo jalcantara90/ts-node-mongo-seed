@@ -68,43 +68,58 @@ export const deleteFile = async (req: Request, res: ICustomResponse, next: NextF
   }
 }
 export const uploadFile = async (req: Request, res: ICustomResponse, next: NextFunction): Promise<any> => {
-  const busboy = new Busboy({headers: req.headers});
-  res.body = [];
-  let filesCount = 0;
-
-  busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-      filesCount++;
-      const hashName = filename.replace('.', `_${uuid4()}.`);
-      
-      file.on('data', (data) => logger.info(`File buffer [${filename}] got ${data.length} bytes`) );
-      file.on('end', async () => {
-        try {
-          const file: IFile = {
-            name: hashName,
-            originalName: filename,
-            mimetype,
-            path: `${UPLOAD_PATH}/${hashName}`,
-            encoding
-          };
-          const fileSaved = await fileService.createFile(file);
-          res.body.push(fileSaved);
-          logger.info(`File buffer [${filename}] saved`);
-          
-          filesCount--;
-          if(!filesCount) {
-            busboy.emit('finishedAll');
+  try {
+    
+    const busboy = new Busboy({headers: req.headers});
+    res.body = [];
+    let filesCount = 0;
+    let requestHasFile: boolean = false;
+  
+    busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+        requestHasFile = true;
+        filesCount++;
+        const hashName = filename.replace('.', `_${uuid4()}.`);
+        
+        file.on('data', (data) => logger.info(`File buffer [${filename}] got ${data.length} bytes`) );
+        file.on('end', async () => {
+          console.log('FILE', file);
+          try {
+            const file: IFile = {
+              name: hashName,
+              originalName: filename,
+              mimetype,
+              path: `${UPLOAD_PATH}/${hashName}`,
+              encoding
+            };
+            const fileSaved = await fileService.createFile(file);
+            res.body.push(fileSaved);
+            logger.info(`File buffer [${filename}] saved`);
+            
+            filesCount--;
+            if(!filesCount) {
+              busboy.emit('finishedAll');
+            }
+          } catch (error) {
+            console.log(error);
+            throw error;
           }
-        } catch (error) {
-          throw error;
-        }
-      });
-      
-      const outStream = createWriteStream(`${UPLOAD_PATH}/${hashName}`);
-      file.pipe(outStream);
-  });
-  busboy.on('finishedAll', () => next() );
-
-  return req.pipe(busboy);
+        });
+        
+        const outStream = createWriteStream(`${UPLOAD_PATH}/${hashName}`);
+        file.pipe(outStream);
+    });
+    busboy.on('finishedAll', () => next() );
+    
+    busboy.on('finish', () => {
+      if(!requestHasFile) {
+        next();
+      }
+    });
+  
+    return req.pipe(busboy);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const downloadFile = async (req: Request, res: ICustomResponse, next: NextFunction): Promise<any> => {
