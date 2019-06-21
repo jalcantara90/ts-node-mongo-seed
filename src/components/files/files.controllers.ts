@@ -82,7 +82,7 @@ export const uploadFile = async (req: Request, res: ICustomResponse, next: NextF
         
         file.on('data', (data) => logger.info(`File buffer [${filename}] got ${data.length} bytes`) );
         file.on('end', async () => {
-          console.log('FILE', file);
+
           try {
             const file: IFile = {
               name: hashName,
@@ -100,7 +100,6 @@ export const uploadFile = async (req: Request, res: ICustomResponse, next: NextF
               busboy.emit('finishedAll');
             }
           } catch (error) {
-            console.log(error);
             throw error;
           }
         });
