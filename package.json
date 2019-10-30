@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "module-alias": "^2.2.0",
     "mongodb": "^3.2.7",
-    "mongoose": "^5.5.13",
+    "mongoose": "^5.7.5",
     "tsconfig-paths": "^3.8.0",
     "typegoose": "^5.7.1",
     "typescript": "^3.5.1",
